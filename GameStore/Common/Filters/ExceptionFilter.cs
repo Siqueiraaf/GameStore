@@ -12,7 +12,6 @@ public class ExceptionFilter : IExceptionFilter
         var mensagem = "Ocorreu um erro inesperado. Por favor, tente novamente.";
         object? detalhes = null;
 
-        // Exemplo de tratamento para exceções específicas
         if (context.Exception is ArgumentException argEx)
         {
             statusCode = (int)HttpStatusCode.BadRequest;
@@ -25,7 +24,6 @@ public class ExceptionFilter : IExceptionFilter
         }
         else
         {
-            // Em ambiente de desenvolvimento, exibe detalhes da exceção
             var env = context.HttpContext.RequestServices.GetService(
                 typeof(Microsoft.Extensions.Hosting.IHostEnvironment))
                 as Microsoft.Extensions.Hosting.IHostEnvironment;

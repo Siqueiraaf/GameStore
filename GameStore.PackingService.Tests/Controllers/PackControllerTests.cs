@@ -16,7 +16,7 @@ public class PackServiceTests
         // Salva o estado original para restaurar depois
         _originalBoxes = BoxCatalog.BoxesAvailable;
 
-        // para testar tem que retirar o readonly
+        // (para testar tem que retirar o readonly)
         BoxCatalog.BoxesAvailable =
         [
             new Box { Id = 1, Type = "Caixa 1", Height = 30, Width = 40, Length = 80 },
@@ -24,10 +24,6 @@ public class PackServiceTests
             new Box { Id = 3, Type = "Caixa 3", Height = 50, Width = 80, Length = 60 },
         ];
     }
-
-    // Restaura o estado original após os testes (pode fazer isso se seu framework suportar Dispose)
-    // Se usar xUnit, pode implementar IDisposable para restaurar:
-    // public void Dispose() => BoxCatalog.BoxesAvailable = _originalBoxes;
 
     [Fact]
     public void PackOrder_AllocatesProductToExistingBox_WhenVolumeAllows()
@@ -61,8 +57,8 @@ public class PackServiceTests
             Id = 2,
             Products = new List<Product>
         {
-            new() { Id = 1, Name = "Big1", Height = 30, Width = 40, Length = 80 }, // volume: 96.000
-            new() { Id = 2, Name = "Big2", Height = 30, Width = 40, Length = 80 }  // volume: 96.000
+            new() { Id = 1, Name = "Big1", Height = 30, Width = 40, Length = 80 },
+            new() { Id = 2, Name = "Big2", Height = 30, Width = 40, Length = 80 }  
         }
         };
 
@@ -70,7 +66,7 @@ public class PackServiceTests
         var result = _packService.PackOrder(order);
 
         // Assert
-        Assert.Equal(2, result.UsedBoxesDto.Count); // Agora devem ir em caixas separadas
+        Assert.Equal(2, result.UsedBoxesDto.Count);
         Assert.All(result.UsedBoxesDto, box => Assert.Single(box.Products));
     }
 
@@ -91,6 +87,6 @@ public class PackServiceTests
         var result = _packService.PackOrder(order);
 
         // Assert
-        Assert.Empty(result.UsedBoxesDto); // Nenhuma caixa suporta o produto
+        Assert.Empty(result.UsedBoxesDto);
     }
 }

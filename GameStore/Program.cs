@@ -34,7 +34,7 @@ internal class Program
         builder.Services.AddScoped<IDbConnection>(sp =>
             new SqlConnection(builder.Configuration.GetConnectionString("SqlConnection")));
 
-        // Inje��o de depend�ncias
+        // DI
         builder.Services.AddScoped<PackService>();
         builder.Services.AddScoped<AuthService>();
         builder.Services.AddScoped<IOrderRepository, OrderRepository>();
@@ -42,7 +42,7 @@ internal class Program
         builder.Services.AddScoped<IUserRepository, UserRepository>();
         builder.Services.AddScoped<IUserService, UserService>();
 
-        // Autentica��o JWT
+        // JWT
         var jwtSettings = builder.Configuration.GetSection("Jwt");
         builder.Services.AddAuthentication(options =>
         {
@@ -63,7 +63,7 @@ internal class Program
             };
         });
 
-        // Controllers com filtro global de exce��es
+        // Controllers com filtro global de exception
         builder.Services.AddControllers(options =>
         {
             options.Filters.Add<ExceptionFilter>();
@@ -78,7 +78,7 @@ internal class Program
                 Description = "API da GameStore"
             });
 
-            // Configura autentica��o JWT no Swagger
+            // Configura autenticacao JWT no Swagger
             c.AddSecurityDefinition("Bearer", new OpenApiSecurityScheme
             {
                 Description = "Informe o token JWT usando o esquema: Bearer {token}",
