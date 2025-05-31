@@ -95,51 +95,6 @@ public async Task<IActionResult> Create([FromBody] CreateProductDto dto)
 
 ---
 
-## 🐳 Docker e Docker Compose
-
-### Dockerfile
-
-```dockerfile
-FROM mcr.microsoft.com/dotnet/aspnet:8.0 AS base
-WORKDIR /app
-EXPOSE 8080
-EXPOSE 8081
-
-FROM mcr.microsoft.com/dotnet/sdk:8.0 AS build
-WORKDIR /src
-COPY ["GameStore/GameStore.csproj", "GameStore/"]
-RUN dotnet restore "./GameStore/GameStore.csproj"
-COPY . .
-WORKDIR "/src/GameStore"
-RUN dotnet build "./GameStore.csproj" -c Release -o /app/build
-
-FROM build AS publish
-RUN dotnet publish "./GameStore.csproj" -c Release -o /app/publish /p:UseAppHost=false
-
-FROM base AS final
-WORKDIR /app
-COPY --from=publish /app/publish .
-ENTRYPOINT ["dotnet", "GameStore.dll"]
-```
-
-### docker-compose.yml
-
-```yaml
-version: '3.4'
-
-services:
-  gamestore-api:
-    build:
-      context: .
-      dockerfile: GameStore/Dockerfile
-    ports:
-      - "8080:8080"
-    environment:
-      - ASPNETCORE_ENVIRONMENT=Development
-```
-
----
-
 ## 🧪 Testes Unitários
 
 Criação do projeto de testes:
