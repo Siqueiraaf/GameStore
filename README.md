@@ -3,7 +3,6 @@
 
 Sistema de empacotamento de pedidos para uma loja de games, com autenticação, tratamento de exceções, validações, e testes automatizados.
 
-O script para criação do banco de dados está em GameStore\GameStore\Common\Scripts>
 ---
 
 ## 📁 Estrutura do Projeto
@@ -200,7 +199,7 @@ docker-compose up --build
 ---
 
 ## 🧾 To Do
-
+- ✅ O script para criação do banco de dados está em GameStore\GameStore\Common\Scripts>
 - ✅ Adicionar autenticação JWT
 - ✅ Criar filtros globais
 - ✅ Validar DTOs
